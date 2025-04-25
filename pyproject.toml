@@ -1,0 +1,21 @@
+[project]
+name = "assignmenttracker"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.12",
+    "psycopg2>=2.9.10",
+    "psycopg>=3.2.6",
+    "sqlmodel>=0.0.24",
+    "uvicorn>=0.34.2",
+    "gooeypie>=0.13.0",
+    "requests>=2.32.3",
+    "email-validator>=2.2.0",
+    "bcrypt>=4.3.0",
+    "python-jose[cryptography]>=3.4.0",
+    "python-multipart>=0.0.20",
+    "alembic>=1.15.2",
+    "python-dotenv>=1.1.0",
+]
