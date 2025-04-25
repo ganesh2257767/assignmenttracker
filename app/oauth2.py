@@ -5,7 +5,7 @@ from datetime import datetime, timedelta, UTC
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 
-from database import get_session
+from app.database import get_session
 from sqlmodel import Session
 
 from app.models import User
