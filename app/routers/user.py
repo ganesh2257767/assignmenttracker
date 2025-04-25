@@ -2,14 +2,22 @@ from app.models import User
 from app.schemas import UserCreate, UserCreateResponse
 from app.database import get_session
 from fastapi import status, Depends, HTTPException, APIRouter
-from sqlmodel import Session
+from sqlmodel import Session, select
 from app.utils import get_hashed_password
 from sqlalchemy.exc import IntegrityError
+from typing import List
 
 router = APIRouter(
     prefix="/users",
     tags=['Users']
 )
+
+
+@router.get("", status_code=status.HTTP_200_OK, response_model=List[UserCreateResponse])
+def get_all_users(session: Session = Depends(get_session)):
+    users = session.exec(select(User)).all()
+    return users
+
 
 @router.get("/{idx}", status_code=status.HTTP_200_OK, response_model=UserCreateResponse)
 def get_user_by_id(idx: int, session: Session = Depends(get_session)):
