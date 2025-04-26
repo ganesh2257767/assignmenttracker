@@ -9,5 +9,13 @@ jobs:
     steps:
       - name: Checking out the code
         uses: actions/checkout@v4
-      - name: Say Hi to Ganesh
-        run: echo "Hello Ganesh"
+      - name: Install UV
+        uses: astral-sh/setup-uv@v5
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+      - name: Install the project
+        run: uv sync --locked --all-extras --dev
+#      - name: Run tests
+#        run: uv run pytest tests -s -v

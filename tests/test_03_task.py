@@ -88,7 +88,6 @@ def test_undo_complete_a_task(client, access_token, idx):
 
 @pytest.mark.parametrize("idx", [1, 2, 3])
 def test_delete_a_task(client, access_token, idx):
-    input()
     headers = {
         "Authorization": f"Bearer {access_token}"
     }
@@ -98,4 +97,3 @@ def test_delete_a_task(client, access_token, idx):
     task = response.json()
     TaskResponse(**task)
     assert task["id"] == idx
-    input()
