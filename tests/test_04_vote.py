@@ -1,7 +1,5 @@
 
-import pytest
 from fastapi import status
-from app.schemas import TaskResponse, ExceptionSchema
 from tests.conftest import client, setup_teardown, access_token, create_user, create_task
 
 user = None
