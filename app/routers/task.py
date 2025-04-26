@@ -20,7 +20,7 @@ def get_all_tasks(session: Session = Depends(get_session), user: User = Depends(
     return tasks
 
 
-@router.get("/{idx}", status_code=status.HTTP_201_CREATED, response_model=TaskResponse)
+@router.get("/{idx}", status_code=status.HTTP_200_OK, response_model=TaskResponse)
 def get_task_by_id(idx: int, session: Session = Depends(get_session), user: User = Depends(verify_and_get_current_user)):
     statement = select(Task).where(
         (Task.user_id == user.id) & (Task.id == idx)

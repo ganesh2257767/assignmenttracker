@@ -1,31 +1,7 @@
-from fastapi.testclient import TestClient
-from app.main import app
-from app.schemas import *
 from fastapi import status
-from sqlmodel import create_engine, Session, SQLModel
-from app.database import get_session
-from app.config import settings
 import pytest
-
-
-@pytest.fixture(scope='session', autouse=True)
-def setup_teardown():
-    DB_URL = f"postgresql://{settings.test_database_username}:{settings.test_database_password}@{settings.test_database_host}/{settings.test_database_name}"
-    engine = create_engine(DB_URL)
-    def get_test_session():
-        with Session(engine) as session:
-            yield session
-
-    app.dependency_overrides[get_session] = get_test_session
-    SQLModel.metadata.create_all(engine)
-    yield
-    SQLModel.metadata.drop_all(engine)
-
-
-@pytest.fixture(autouse=True)
-def client():
-    return TestClient(app)
-
+from app.schemas import UserCreateResponse, ExceptionSchema
+from tests.conftest import client, setup_teardown
 
 def test_base_route(client):
     response = client.get("/")
@@ -52,8 +28,7 @@ def test_create_user(client, email, password):
 def test_get_all_users(client):
     response = client.get("/users")
     assert response.status_code == status.HTTP_200_OK
-    users_list = response.json()
-    assert len(users_list) == 3
+    assert len(response.json()) == 3
 
 
 @pytest.mark.parametrize("idx", [1, 2, 3])
