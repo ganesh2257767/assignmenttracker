@@ -45,8 +45,3 @@ jobs:
         run: uv sync --locked --all-extras --dev
       - name: Run tests
         run: uv run pytest tests -s -v
-#      - name: Check tests passed
-#        if: ${{ failure() }}
-#        run: |
-#          echo "Tests failed. Cancelling deployment."
-#          exit 1
