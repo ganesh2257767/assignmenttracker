@@ -4,7 +4,19 @@ on:
     branches:
       - main
 jobs:
-  testing:
+  Testing:
+    env:
+      DATABASE_HOST: ${{secrets.DATABASE_HOST}}
+      DATABASE_USERNAME: ${{secrets.DATABASE_USERNAME}}
+      DATABASE_PASSWORD: ${{secrets.DATABASE_PASSWORD}}
+      DATABASE_NAME: ${{secrets.DATABASE_NAME}}
+      SECRET_KEY: ${{secrets.SECRET_KEY}}
+      ALGORITHM: ${{secrets.ALGORITHM}}
+      ACCESS_TOKEN_EXPIRE_MINUTES: ${{secrets.ACCESS_TOKEN_EXPIRE_MINUTES}}
+      TEST_DATABASE_HOST: ${{secrets.TEST_DATABASE_HOST}}
+      TEST_DATABASE_USERNAME: ${{secrets.TEST_DATABASE_USERNAME}}
+      TEST_DATABASE_PASSWORD: ${{secrets.TEST_DATABASE_PASSWORD}}
+      TEST_DATABASE_NAME: ${{secrets.TEST_DATABASE_NAME}}
     runs-on: ubuntu-latest
     steps:
       - name: Checking out the code
@@ -17,5 +29,5 @@ jobs:
           python-version-file: "pyproject.toml"
       - name: Install the project
         run: uv sync --locked --all-extras --dev
-#      - name: Run tests
-#        run: uv run pytest tests -s -v
+      - name: Run tests
+        run: uv run pytest tests -s -v
