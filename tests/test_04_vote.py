@@ -72,4 +72,4 @@ def test_downvote_upvoted_task(client, access_token):
     assert response.status_code == status.HTTP_200_OK
     response = response.json()
     assert response.get("message") == f"User: {user.get("email")} downvoted task: {task.get("id")}, upvote removed automatically"
-
+    assert 1 == 2
