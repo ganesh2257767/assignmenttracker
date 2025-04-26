@@ -1,5 +1,5 @@
 from app.models import User
-from app.schemas import UserCreate, UserCreateResponse
+from app.schemas import UserCreate, UserCreateResponse, ExceptionSchema
 from app.database import get_session
 from fastapi import status, Depends, HTTPException, APIRouter
 from sqlmodel import Session, select
@@ -27,7 +27,7 @@ def get_user_by_id(idx: int, session: Session = Depends(get_session)):
     return user
 
 
-@router.post("", status_code=status.HTTP_201_CREATED, response_model=UserCreateResponse)
+@router.post("", status_code=status.HTTP_201_CREATED, response_model=UserCreateResponse | ExceptionSchema)
 def create_a_user(user: UserCreate, session: Session = Depends(get_session)):
     email = user.email
     password_hash = get_hashed_password(user.password)

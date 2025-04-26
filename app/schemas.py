@@ -54,3 +54,6 @@ class UpVoteCreate(VoteBase):
 
 class DownVoteCreate(VoteBase):
     pass
+
+class ExceptionSchema(BaseModel):
+    detail: str
