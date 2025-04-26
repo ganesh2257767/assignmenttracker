@@ -7,19 +7,16 @@ from app.database import get_session
 from app.config import settings
 import pytest
 
-DB_URL = f"postgresql://{settings.test_database_username}:{settings.test_database_password}@{settings.test_database_host}/{settings.test_database_name}"
-engine = create_engine(DB_URL)
-
-
-def get_test_session():
-    with Session(engine) as session:
-        yield session
-
-app.dependency_overrides[get_session] = get_test_session
-
 
 @pytest.fixture(scope='session', autouse=True)
 def setup_teardown():
+    DB_URL = f"postgresql://{settings.test_database_username}:{settings.test_database_password}@{settings.test_database_host}/{settings.test_database_name}"
+    engine = create_engine(DB_URL)
+    def get_test_session():
+        with Session(engine) as session:
+            yield session
+
+    app.dependency_overrides[get_session] = get_test_session
     SQLModel.metadata.create_all(engine)
     yield
     SQLModel.metadata.drop_all(engine)
