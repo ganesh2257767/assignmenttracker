@@ -1,4 +1,4 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr,ConfigDict
 from datetime import datetime
 
 
@@ -6,10 +6,9 @@ class TaskBase(BaseModel):
     task_name: str
     task_type: str
     deadline: datetime
-
-    class Config:
-        from_attributes = True
-
+    #
+    # model_config = ConfigDict(from_attributes=True)
+    #
 
 class TaskCreate(TaskBase):
     pass
@@ -26,8 +25,7 @@ class TaskResponse(TaskBase):
 class UserBase(BaseModel):
     email: EmailStr
 
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserCreate(UserBase):
@@ -46,9 +44,9 @@ class TokenResponse(BaseModel):
 
 class VoteBase(BaseModel):
     task_id: int
-    class Config:
-        from_attributes=True
-
+    #
+    # model_config = ConfigDict(from_attributes=True)
+    #
 
 class UpVoteCreate(VoteBase):
     pass

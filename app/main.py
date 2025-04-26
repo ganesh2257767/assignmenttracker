@@ -1,9 +1,11 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from app.routers import task, user, auth, vote
+from typing import Dict
 
-app = FastAPI(title="TaskBook")
+app = FastAPI(title="Assignment Tracker")
+
 
 app.include_router(task.router)
 app.include_router(user.router)
@@ -19,6 +21,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/", status_code=status.HTTP_200_OK, response_model=Dict[str, str])
+def index():
+    return {"Welcome": "This is the index page"}
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app", reload=True)
