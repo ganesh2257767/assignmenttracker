@@ -16,7 +16,7 @@ router = APIRouter(
 @router.post("/login", status_code=status.HTTP_200_OK, response_model=TokenResponse)
 def login_user(user_credentials: OAuth2PasswordRequestForm = Depends(), session: Session = Depends(get_session)):
     statement = select(User).where(User.email == user_credentials.username)
-    user: Optional[User] = session.scalars(statement).first()
+    user: Optional[User] = session.scalars(statement).one_or_none()
     if not user:
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Invalid Credentials!")
 
