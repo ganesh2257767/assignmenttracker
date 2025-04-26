@@ -17,6 +17,20 @@ jobs:
       TEST_DATABASE_USERNAME: ${{secrets.TEST_DATABASE_USERNAME}}
       TEST_DATABASE_PASSWORD: ${{secrets.TEST_DATABASE_PASSWORD}}
       TEST_DATABASE_NAME: ${{secrets.TEST_DATABASE_NAME}}
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: ${{secrets.TEST_DATABASE_PASSWORD}}
+          POSTGRES_DB: ${{secrets.TEST_DATABASE_NAME}}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     runs-on: ubuntu-latest
     steps:
       - name: Checking out the code
