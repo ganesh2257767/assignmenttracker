@@ -2,21 +2,17 @@ from pydantic import BaseModel, EmailStr,ConfigDict
 from datetime import datetime
 
 
-class TaskBase(BaseModel):
-    task_name: str
-    task_type: str
-    deadline: datetime
-    #
-    # model_config = ConfigDict(from_attributes=True)
-    #
+class PostBase(BaseModel):
+    post_title: str
+    post_content: str
 
-class TaskCreate(TaskBase):
+
+class PostCreate(PostBase):
     pass
 
 
-class TaskResponse(TaskBase):
+class PostResponse(PostBase):
     id: int
-    completed: bool
     user: "UserCreateResponse"
     upvotes: int
     downvotes: int
@@ -43,10 +39,8 @@ class TokenResponse(BaseModel):
 
 
 class VoteBase(BaseModel):
-    task_id: int
-    #
-    # model_config = ConfigDict(from_attributes=True)
-    #
+    post_id: int
+
 
 class UpVoteCreate(VoteBase):
     pass

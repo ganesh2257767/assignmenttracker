@@ -37,9 +37,9 @@ def access_token(client):
 
 
 @pytest.fixture
-def create_task(client, create_user, access_token):
+def create_post(client, create_user, access_token):
     headers = {
         "Authorization": f"Bearer {access_token}"
     }
-    task = client.post("/tasks", json={"task_name": "test", "task_type":"test", "deadline":"2025-05-05"}, headers=headers).json()
+    task = client.post("/posts", json={"post_title": "test", "post_content":"test"}, headers=headers).json()
     return task

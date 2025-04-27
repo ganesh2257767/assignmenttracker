@@ -1,12 +1,12 @@
 import uvicorn
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
-from app.routers import task, user, auth, vote
+from app.routers import post, user, auth, vote
 from typing import Dict, List
 
 app = FastAPI(title="Assignment Tracker")
 
-app.include_router(task.router)
+app.include_router(post.router)
 app.include_router(user.router)
 app.include_router(auth.router)
 app.include_router(vote.router)
