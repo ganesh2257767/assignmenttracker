@@ -51,3 +51,7 @@ class DownVoteCreate(VoteBase):
 
 class ExceptionSchema(BaseModel):
     detail: str
+
+
+class VoteResponse(BaseModel):
+    message: str

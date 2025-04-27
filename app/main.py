@@ -21,7 +21,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/", status_code=status.HTTP_200_OK, response_model=Dict[str, str])
+@app.get("/", tags=["Home"], status_code=status.HTTP_200_OK, response_model=Dict[str, str])
 def index() -> Dict[str, str]:
     return {"Welcome": "This is the index page"}
 
